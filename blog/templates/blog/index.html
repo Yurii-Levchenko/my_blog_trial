@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Blog home page
+{% endblock %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'blog/post.css' %}" />
+  <link rel="stylesheet" href="{% static 'blog/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+  <section id="welcome">
+    <header>
+      <img src="{% static 'blog/images/gorilla.jpg' %}" alt="Yura is the author" />
+      <h2>Yura's blog</h2>
+    </header>
+    <p>Hi glad to see u</p>
+  </section>
+
+  <section id="latest-posts">
+    <h2>My Latest Thoughts</h2>
+
+    <ul>
+      {%for post in posts%}
+        {%include "blog/includes/post.html"%}
+      {%endfor%}
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>What I Do</h2>
+    <p>I love to sleep and train my body and mind</p>
+    <p>some other content</p>
+  </section>
+{% endblock %}
