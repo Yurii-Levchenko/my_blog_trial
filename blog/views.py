@@ -1,9 +1,10 @@
 # for returning corresponding rendered html pages
 from django.shortcuts import render, get_object_or_404
-from .models import Author, Post, Tag
-
-
 from django.views.generic import DetailView, ListView
+
+from .models import Post
+from .forms import CommentForm
+
 
 def get_date(post):
     return post['date']
@@ -54,6 +55,7 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         identified_post = self.object
         context["post_tags"] = identified_post.tags.all()
+        context["comment_form"] = CommentForm()
         return context
     
 
