@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+&yptq6pd=zgyqrf5ua+$3ddc=ouj@(u0+&jz5m$a66erm%ztw
 DEBUG = getenv("IS_DEVELOPMENT", True)
 
 ALLOWED_HOSTS = [
-    getenv('APP_HOST')
+    getenv('APP_HOST', '127.0.0.1')
 ]
 
 
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'storages',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +83,12 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'djangoblog',
+        'PASSWORD': 'FirstProjectinDjango',
+        'HOST': 'django-blog.cfeewuswi7zb.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -136,3 +142,15 @@ MEDIA_URL = "/files/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AWS_STORAGE_BUCKET_NAME = "django-personal-blog"
+AWS_S3_REGION_NAME = "eu-north-1"
+AWS_ACCESS_KEY_ID = "AKIAW3MEFA4TDGHH55NP"
+AWS_SECRET_ACCESS_KEY = "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"
+
+AWS_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+STATICFILES_FOLDER = "static"
+MEDIAFILES_FOLDER = "media"
+
+STATICFILES_STORAGE = "custom_storages.StaticFileStorage"
+DEFAULT_FILE_STORAGE = "custom_storages.MediaFileStorage"
